@@ -45,14 +45,66 @@ You can also use the included `Makefile` to interact with the project, including
 
 1. Run the install [Kaggle API token](https://www.kaggle.com/docs/api) script and follow the instructions:
 
-        ./install-kaggle-token.sh
+```bash
+./install-kaggle-token.sh
+```
 2. Accept all of the [kaggle competition rules](https://www.kaggle.com/c/acm-sf-chapter-hackathon-big/rules) then run the download data script:
 
-        ./download-data.sh (or `make download`)
+Run (or `make download`)
+```bash
+./download-data.sh 
+```
 3. Verify your data is in the right location: 
        
-        ls /workspace/datasets
+```bash
+ls /workspace/datasets
+```
+
 4. You should see:  `popular_skus.py  product_data  test.csv  train.csv`
+
+# Setting up the Indexes
+
+```bash
+./index-data.sh
+```
+
+
+## 🐞 Debugging: Testing the datasets that were downloaded from Kaggle
+
+Running: `GET /bbuy_products/_count`
+Logged this:
+```json
+{
+  "count": 0,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  }
+}
+```
+
+Running: `GET /bbuy_queries/_count`
+Logged this:
+```json
+{
+  "count": 5595807,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  }
+}
+```
+
+To do a reset, I deleted the indexes:
+```bash
+DELETE /bbuy_products
+DELETE /bbuy_queries
+```
+
 
 
 # Exploring the OpenSearch Sample Dashboards and Data
